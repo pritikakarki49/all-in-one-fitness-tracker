@@ -225,9 +225,17 @@ def serve_static(path):
     if path in ("", "/"):
         return send_from_directory(PROJECT_ROOT, "homepage.html")
 
+    # Serve frontend pages and other project files
     safe_path = (PROJECT_ROOT / path).resolve()
+
     if safe_path.is_file() and str(safe_path).startswith(str(PROJECT_ROOT)):
         return send_from_directory(PROJECT_ROOT, path)
+
+    # Handle folder links such as /frontend/pages/tracker/
+    if path.endswith("/"):
+        index_file = safe_path / "index.html"
+        if index_file.is_file() and str(index_file).startswith(str(PROJECT_ROOT)):
+            return send_from_directory(safe_path, "index.html")
 
     return jsonify({"error": "Not found."}), 404
 
