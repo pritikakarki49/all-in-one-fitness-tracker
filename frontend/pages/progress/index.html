@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pulseboard progress tracking for weekly activity and goals.">
+  <title>Progress | Pulseboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="../../../index.html" aria-label="Pulseboard home"><span class="brand-mark" aria-hidden="true">+</span><span>pulseboard</span></a>
+      <div class="profile-summary"><div class="avatar">JD</div><div><strong>Jordan Davis</strong><span>Beginner journey</span></div></div>
+      <nav class="nav-links">
+        <a class="nav-link" href="../../../index.html#dashboard"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a class="nav-link" href="../../pages/tracker/index.html"><span class="nav-icon">◷</span>Daily tracker</a>
+        <a class="nav-link active" href="index.html"><span class="nav-icon">↗</span>My progress</a>
+        <a class="nav-link" href="../../../index.html#user-info"><span class="nav-icon">◎</span>User information</a>
+      </nav>
+      <div class="sidebar-footer"><p class="prototype-note">Beginner fitness tracker</p></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong>Progress</strong></div>
+        <div class="topbar-actions"><a class="profile-button" href="../../../index.html#user-info"><span class="avatar avatar-small">JD</span><span>Jordan</span></a></div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page-heading">
+          <p class="eyebrow">Your momentum</p>
+          <h1>Progress overview<span class="accent">.</span></h1>
+          <p>Track your recent effort and wins over the last 7 days.</p>
+        </section>
+
+        <section class="stats-grid" aria-label="Progress summary">
+          <article class="stat-card steps-card">
+            <div class="card-topline"><span class="stat-icon">↗</span><span class="status-pill good">Steady</span></div>
+            <p class="stat-label">Total steps</p>
+            <div class="stat-value" id="progress-steps">0</div>
+            <p class="stat-note" id="progress-steps-note">Waiting for data</p>
+          </article>
+          <article class="stat-card water-card">
+            <div class="card-topline"><span class="stat-icon">◒</span><span class="status-pill cool">Hydrate</span></div>
+            <p class="stat-label">Water total</p>
+            <div class="stat-value" id="progress-water">0</div>
+            <p class="stat-note" id="progress-water-note">Waiting for data</p>
+          </article>
+          <article class="stat-card calories-card">
+            <div class="card-topline"><span class="stat-icon">◇</span><span class="status-pill warm">Balanced</span></div>
+            <p class="stat-label">Calories</p>
+            <div class="stat-value" id="progress-calories">0</div>
+            <p class="stat-note" id="progress-calories-note">Waiting for data</p>
+          </article>
+          <article class="stat-card workout-card">
+            <div class="card-topline"><span class="stat-icon">✦</span><span class="status-pill violet">Active</span></div>
+            <p class="stat-label">Workout minutes</p>
+            <div class="stat-value" id="progress-workouts">0</div>
+            <p class="stat-note" id="progress-workouts-note">Waiting for data</p>
+          </article>
+        </section>
+
+        <section class="panel progress-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Your rhythm</p><h2>Weekly breakdown</h2></div></div>
+          <div class="activity-list" id="progress-list"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function getToken() {
+      return localStorage.getItem('auth_token');
+    }
+
+    function redirectToHome() {
+      localStorage.removeItem('auth_token');
+      window.location.href = '../../../homepage.html';
+    }
+
+    async function authFetch(url, options) {
+      var token = getToken();
+      var headers = Object.assign({ 'Content-Type': 'application/json' }, options && options.headers ? options.headers : {});
+      if (token) headers.Authorization = 'Bearer ' + token;
+      var response = await fetch(url, Object.assign({ credentials: 'same-origin', headers: headers }, options));
+      var result = await response.json().catch(function () { return {}; });
+      if (!response.ok) {
+        if (response.status === 401) {
+          redirectToHome();
+        }
+        throw new Error(result.error || 'Request failed.');
+      }
+      return result;
+    }
+
+    async function loadProgress() {
+      if (!getToken()) {
+        redirectToHome();
+        return;
+      }
+
+      try {
+        var auth = await authFetch('/api/auth/check');
+        var user = auth.user || {};
+        var name = (user.name || user.username || 'User').split(' ')[0];
+        var profileText = document.querySelector('.profile-summary strong');
+        if (profileText) profileText.textContent = name;
+        var topbarName = document.querySelector('.profile-button span:last-child');
+        if (topbarName) topbarName.textContent = name;
+
+        var summary = await authFetch('/api/progress?days=7');
+        document.querySelector('#progress-steps').textContent = Number(summary.totals.steps || 0).toLocaleString();
+        document.querySelector('#progress-water').textContent = Number(summary.totals.water || 0).toLocaleString();
+        document.querySelector('#progress-calories').textContent = Number(summary.totals.calories || 0).toLocaleString();
+        document.querySelector('#progress-workouts').textContent = Number(summary.totals.workout_minutes || 0).toLocaleString();
+
+        document.querySelector('#progress-steps-note').textContent = 'Average ' + Number(summary.average_steps_per_day || 0).toLocaleString() + ' steps/day';
+        document.querySelector('#progress-water-note').textContent = 'Average ' + Number(summary.average_water_per_day || 0).toLocaleString() + ' glasses/day';
+        document.querySelector('#progress-calories-note').textContent = 'Across ' + (summary.daily || []).length + ' recorded days';
+        document.querySelector('#progress-workouts-note').textContent = (summary.workouts_completed || 0) + ' workout days logged';
+
+        var list = document.querySelector('#progress-list');
+        list.innerHTML = '';
+        (summary.daily || []).slice(-7).forEach(function (entry) {
+          var row = document.createElement('div');
+          row.className = 'activity-row';
+          row.innerHTML = '<span class="activity-icon walk">↗</span><div><strong>' + (entry.date || 'Today') + '</strong><small>' + (entry.goal_status || 'On track') + '</small></div><b>' + Number(entry.steps || 0).toLocaleString() + ' steps</b>';
+          list.appendChild(row);
+        });
+      } catch (error) {
+        console.error(error);
+        redirectToHome();
+      }
+    }
+
+    document.querySelector('.mobile-menu').addEventListener('click', function () {
+      var sidebar = document.querySelector('.sidebar');
+      var isOpen = sidebar.classList.toggle('is-open');
+      document.querySelector('.mobile-menu').setAttribute('aria-expanded', isOpen);
+    });
+
+    document.querySelectorAll('.nav-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        document.querySelector('.sidebar').classList.remove('is-open');
+      });
+    });
+
+    loadProgress();
+  </script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Record daily steps, water, calories, workouts, and goals in the Pulseboard fitness tracker.">
+  <title>Daily Tracker | Pulseboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="../../../index.html" aria-label="Pulseboard home"><span class="brand-mark" aria-hidden="true">+</span><span>pulseboard</span></a>
+      <div class="profile-summary"><div class="avatar">JD</div><div><strong>Jordan Davis</strong><span>Beginner journey</span></div></div>
+      <nav class="nav-links">
+        <a class="nav-link" href="../../../index.html#dashboard"><span class="nav-icon">⌂</span>Dashboard</a>
+        <a class="nav-link active" href="index.html"><span class="nav-icon">◷</span>Daily tracker</a>
+        <a class="nav-link" href="../progress/index.html"><span class="nav-icon">↗</span>My progress</a>
+        <a class="nav-link" href="../../../index.html#user-info"><span class="nav-icon">◎</span>User information</a>
+      </nav>
+      <div class="sidebar-footer"><p class="prototype-note">Beginner fitness tracker</p></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong>Daily tracker</strong></div>
+        <div class="topbar-actions"><a class="profile-button" href="../../../index.html#user-info"><span class="avatar avatar-small">JD</span><span>Jordan</span></a></div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page-heading"><p class="eyebrow">Tuesday, October 24, 2023</p><h1>Track today<span class="accent">.</span></h1><p>Keep your daily activity in one simple view.</p></section>
+
+        <section class="tracker-grid" aria-label="Daily fitness tracker">
+          <article class="tracker-card steps-tracker">
+            <div class="tracker-card-heading"><div><span class="tracker-icon">↗</span><p class="eyebrow">Movement</p><h2>Steps</h2></div><strong id="steps-value">6,842</strong></div>
+            <p class="tracker-description">Your daily step count</p>
+            <div class="progress-track"><span id="steps-progress" style="width: 85%"></span></div>
+            <form class="entry-form" data-entry="steps"><label for="steps-input">Add steps</label><div><input id="steps-input" type="number" min="0" placeholder="e.g. 1200"><button type="submit">Add</button></div></form>
+            <small class="tracker-target">Daily goal: 8,000 steps</small>
+          </article>
+
+          <article class="tracker-card water-tracker">
+            <div class="tracker-card-heading"><div><span class="tracker-icon">◒</span><p class="eyebrow">Hydration</p><h2>Water intake</h2></div><strong><span id="water-value">5</span><small> / 8</small></strong></div>
+            <p class="tracker-description">Glasses of water today</p>
+            <div class="glass-row" aria-label="Water glasses"><button type="button" class="glass filled" data-glass="1">1</button><button type="button" class="glass filled" data-glass="2">2</button><button type="button" class="glass filled" data-glass="3">3</button><button type="button" class="glass filled" data-glass="4">4</button><button type="button" class="glass filled" data-glass="5">5</button><button type="button" class="glass" data-glass="6">6</button><button type="button" class="glass" data-glass="7">7</button><button type="button" class="glass" data-glass="8">8</button></div>
+            <small class="tracker-target">Select the glasses you have had</small>
+          </article>
+
+          <article class="tracker-card calories-tracker">
+            <div class="tracker-card-heading"><div><span class="tracker-icon">◇</span><p class="eyebrow">Nutrition</p><h2>Calories</h2></div><strong id="calories-value">1,240<small> kcal</small></strong></div>
+            <p class="tracker-description">Calories recorded today</p>
+            <div class="progress-track"><span id="calories-progress" style="width: 62%"></span></div>
+            <form class="entry-form" data-entry="calories"><label for="calories-input">Add calories</label><div><input id="calories-input" type="number" min="0" placeholder="e.g. 450"><button type="submit">Add</button></div></form>
+            <small class="tracker-target">Daily guide: 2,000 kcal</small>
+          </article>
+
+          <article class="tracker-card workout-tracker">
+            <div class="tracker-card-heading"><div><span class="tracker-icon">✦</span><p class="eyebrow">Activity</p><h2>Workout</h2></div><strong id="workout-value">28<small> min</small></strong></div>
+            <p class="tracker-description">Time spent moving today</p>
+            <form class="workout-form" data-entry="workout"><label for="workout-type">Workout activity</label><input id="workout-type" type="text" placeholder="e.g. Home strength"><div><input id="workout-duration" type="number" min="1" placeholder="Minutes"><button type="submit">Record</button></div></form>
+            <small class="tracker-target" id="workout-note">Record a completed workout</small>
+          </article>
+        </section>
+
+        <section class="panel goals-panel tracker-goals" aria-labelledby="goals-title">
+          <div class="panel-heading"><div><p class="eyebrow">Daily fitness goals</p><h2 id="goals-title">Today's goals</h2></div><span class="goal-count" id="goal-count">3 of 5</span></div>
+          <div class="goal-list">
+            <label class="goal-item completed"><input type="checkbox" checked><span class="checkmark">✓</span><span>Take a morning walk</span><small>2,400 steps</small></label>
+            <label class="goal-item completed"><input type="checkbox" checked><span class="checkmark">✓</span><span>Drink 5 glasses of water</span><small>5 / 5 glasses</small></label>
+            <label class="goal-item completed"><input type="checkbox" checked><span class="checkmark">✓</span><span>Move for 20 minutes</span><small>28 minutes</small></label>
+            <label class="goal-item"><input type="checkbox"><span class="checkmark"></span><span>Reach your step goal</span><small>1,158 left</small></label>
+            <label class="goal-item"><input type="checkbox"><span class="checkmark"></span><span>Wind down by 10:30 PM</span><small>Evening goal</small></label>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script>
+    var mobileMenu = document.querySelector('.mobile-menu');
+    var sidebar = document.querySelector('.sidebar');
+
+    function getToken() {
+      return localStorage.getItem('auth_token');
+    }
+
+    function redirectToHome() {
+      localStorage.removeItem('auth_token');
+      window.location.href = '../../../homepage.html';
+    }
+
+    async function authFetch(url, options) {
+      var token = getToken();
+      var headers = Object.assign({ 'Content-Type': 'application/json' }, options && options.headers ? options.headers : {});
+      if (token) {
+        headers.Authorization = 'Bearer ' + token;
+      }
+      var response = await fetch(url, Object.assign({ credentials: 'same-origin', headers: headers }, options));
+      var result = await response.json().catch(function () { return {}; });
+      if (!response.ok) {
+        if (response.status === 401) {
+          redirectToHome();
+        }
+        throw new Error(result.error || 'Request failed.');
+      }
+      return result;
+    }
+
+    function setValueText(selector, value, suffix) {
+      var element = document.querySelector(selector);
+      if (!element) return;
+      if (suffix) {
+        element.innerHTML = value + suffix;
+      } else {
+        element.textContent = value;
+      }
+    }
+
+    async function loadTrackerData() {
+      if (!getToken()) {
+        redirectToHome();
+        return;
+      }
+
+      try {
+        var auth = await authFetch('/api/auth/check');
+        var user = auth.user || {};
+        var name = (user.name || user.username || 'User').split(' ')[0];
+        var profileLink = document.querySelector('.profile-button span:last-child');
+        if (profileLink) {
+          profileLink.textContent = name;
+        }
+
+        var records = await authFetch('/api/fitness/records?days=7');
+        var latest = records.records && records.records.length ? records.records[records.records.length - 1] : {};
+
+        setValueText('#steps-value', Number(latest.steps || 0).toLocaleString(), '');
+        setValueText('#water-value', Number(latest.water || 0).toLocaleString(), '');
+        setValueText('#calories-value', Number(latest.calories || 0).toLocaleString(), ' kcal');
+        setValueText('#workout-value', Number(latest.workout_minutes || 0).toLocaleString(), '<small> min</small>');
+      var goalItems = document.querySelectorAll('.goal-item');
+
+var steps = Number(latest.steps || 0);
+var water = Number(latest.water || 0);
+var workout = Number(latest.workout_minutes || 0);
+
+var goalCompleted = [
+  steps >= 2400,
+  water >= 5,
+  workout >= 20,
+  steps >= 8000,
+  false
+];
+
+var goalTexts = [
+  steps >= 2400 ? 'Completed' : steps.toLocaleString() + ' / 2,400 steps',
+  water >= 5 ? water + ' / 5 glasses' : water + ' / 5 glasses',
+  workout >= 20 ? workout + ' minutes' : workout + ' / 20 minutes',
+  steps >= 8000 ? 'Goal reached' : (8000 - steps).toLocaleString() + ' left',
+  'Evening goal'
+];
+
+goalItems.forEach(function (item, index) {
+  var checkbox = item.querySelector('input');
+  var checkmark = item.querySelector('.checkmark');
+  var small = item.querySelector('small');
+
+  checkbox.checked = goalCompleted[index];
+  item.classList.toggle('completed', goalCompleted[index]);
+  checkmark.textContent = goalCompleted[index] ? '✓' : '';
+  small.textContent = goalTexts[index];
+});
+
+var completedGoals = goalCompleted.filter(Boolean).length;
+document.querySelector('#goal-count').textContent = completedGoals + ' of 5';
+
+  
+
+        var stepsPercentage = Math.min((Number(latest.steps || 0) / 8000) * 100, 100);
+        var caloriesPercentage = Math.min((Number(latest.calories || 0) / 2000) * 100, 100);
+        document.querySelector('#steps-progress').style.width = stepsPercentage + '%';
+        document.querySelector('#calories-progress').style.width = caloriesPercentage + '%';
+      } catch (error) {
+        console.error(error);
+        redirectToHome();
+      }
+    }
+
+    async function saveFitnessRecord(payload) {
+      var response = await authFetch('/api/fitness/record', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+      });
+      return response.record;
+    }
+
+    mobileMenu.addEventListener('click', function () {
+      var isOpen = sidebar.classList.toggle('is-open');
+      mobileMenu.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    });
+
+    document.querySelectorAll('.nav-link').forEach(function (link) {
+      link.addEventListener('click', function () { sidebar.classList.remove('is-open'); });
+    });
+
+    document.querySelectorAll('.goal-item input').forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
+        checkbox.closest('.goal-item').classList.toggle('completed', checkbox.checked);
+        document.querySelector('#goal-count').textContent = document.querySelectorAll('.goal-item input:checked').length + ' of 5';
+      });
+    });
+
+    
+    document.querySelectorAll('.glass').forEach(function (glass) {
+  glass.addEventListener('click', async function () {
+    var amount = Number(glass.dataset.glass);
+
+    document.querySelectorAll('.glass').forEach(function (item) {
+      item.classList.toggle('filled', Number(item.dataset.glass) <= amount);
+    });
+
+    document.querySelector('#water-value').textContent = amount;
+
+    try {
+      var existing = await authFetch('/api/fitness/records?days=1');
+      var latest = existing.records && existing.records.length
+        ? existing.records[existing.records.length - 1]
+        : {};
+
+      await saveFitnessRecord({
+        date: new Date().toISOString().slice(0, 10),
+        steps: Number(latest.steps || 0),
+        water: amount,
+        calories: Number(latest.calories || 0),
+        workout_minutes: Number(latest.workout_minutes || 0),
+        workout_type: latest.workout_type || 'Workout',
+        workout_completed: Boolean(latest.workout_completed),
+        goal_status: 'On track'
+      });
+
+      loadTrackerData();
+    } catch (error) {
+      console.error('Water update failed:', error);
+    }
+  });
+});
+ss
+
+    document.querySelectorAll('.entry-form').forEach(function (form) {
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        var input = form.querySelector('input');
+        var value = Number(input.value);
+        if (!value) return;
+
+        var existing = await authFetch('/api/fitness/records?days=1');
+        var latest = existing.records && existing.records.length ? existing.records[existing.records.length - 1] : {};
+        var payload = {
+          date: new Date().toISOString().slice(0, 10),
+          steps: form.dataset.entry === 'steps' ? (Number(latest.steps || 0) + value) : Number(latest.steps || 0),
+          water: form.dataset.entry === 'calories' ? Number(latest.water || 0) : Number(latest.water || 0),
+          calories: form.dataset.entry === 'calories' ? (Number(latest.calories || 0) + value) : Number(latest.calories || 0),
+          workout_minutes: Number(latest.workout_minutes || 0),
+          workout_type: latest.workout_type || 'Workout',
+          workout_completed: Boolean(latest.workout_completed),
+          goal_status: 'On track'
+        };
+        if (form.dataset.entry === 'steps') {
+          payload.steps = Number(latest.steps || 0) + value;
+        } else {
+          payload.calories = Number(latest.calories || 0) + value;
+        }
+        await saveFitnessRecord(payload);
+        loadTrackerData();
+        input.value = '';
+      });
+    });
+
+    document.querySelector('.workout-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
+      var duration = Number(document.querySelector('#workout-duration').value);
+      var type = document.querySelector('#workout-type').value;
+      if (!duration) return;
+
+      var existing = await authFetch('/api/fitness/records?days=1');
+      var latest = existing.records && existing.records.length ? existing.records[existing.records.length - 1] : {};
+      await saveFitnessRecord({
+        date: new Date().toISOString().slice(0, 10),
+        steps: Number(latest.steps || 0),
+        water: Number(latest.water || 0),
+        calories: Number(latest.calories || 0),
+        workout_minutes: duration,
+        workout_type: type || 'Workout',
+        workout_completed: true,
+        goal_status: 'On track'
+      });
+      document.querySelector('#workout-value').innerHTML = duration + '<small> min</small>';
+      document.querySelector('#workout-note').textContent = (type || 'Workout') + ' recorded';
+      loadTrackerData();
+      document.querySelector('#workout-duration').value = '';
+      document.querySelector('#workout-type').value = '';
+    });
+
+    loadTrackerData();
+  </script>
+</body>
+</html>

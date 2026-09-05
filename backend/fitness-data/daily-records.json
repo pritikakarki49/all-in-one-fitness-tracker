@@ -1,0 +1,37 @@
+{
+  "records": [
+    {
+      "user_id": "5f45932eb8b656c2",
+      "date": "2026-09-01",
+      "steps": 8200,
+      "water": 7,
+      "calories": 1900,
+      "workout_minutes": 0,
+      "workout_type": "Workout",
+      "workout_completed": true,
+      "goal_status": "On track"
+    },
+    {
+      "user_id": "ee89a7062d29db0d",
+      "date": "2026-09-01",
+      "steps": 8200,
+      "water": 7,
+      "calories": 1900,
+      "workout_minutes": 0,
+      "workout_type": "Workout",
+      "workout_completed": true,
+      "goal_status": "On track"
+    },
+    {
+      "user_id": "6a7023a9bbf8053f",
+      "date": "2026-09-05",
+      "steps": 500,
+      "water": 7,
+      "calories": 650,
+      "workout_minutes": 60,
+      "workout_type": "Workout",
+      "workout_completed": true,
+      "goal_status": "On track"
+    }
+  ]
+}

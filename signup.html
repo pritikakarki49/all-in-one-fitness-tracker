@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create a new Pulseboard fitness tracker account.">
+  <title>Create Account | Pulseboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="login-home">
+    <section class="login-home-intro" aria-label="Pulseboard introduction">
+      <a class="brand" href="homepage.html" aria-label="Pulseboard home"><span class="brand-mark" aria-hidden="true">+</span><span>pulseboard</span></a>
+      <div class="login-home-copy">
+        <p class="eyebrow">Beginner fitness tracker</p>
+        <h1>Begin with a<br><span>small step.</span></h1>
+        <p>Create a simple space for your daily movement, hydration, nutrition, workouts, and progress.</p>
+      </div>
+      <div class="login-home-stats" aria-label="Tracker features">
+        <div><strong>01</strong><span>new account</span></div>
+        <div><strong>04</strong><span>tracker areas</span></div>
+        <div><strong>∞</strong><span>small wins</span></div>
+      </div>
+    </section>
+
+    <section class="login-home-panel" aria-labelledby="signup-title">
+      <div class="login-home-card signup-card">
+        <p class="eyebrow">New to Pulseboard</p>
+        <h2 id="signup-title">Create your account</h2>
+        <p>Set up your profile to begin your personal fitness journey.</p>
+        <form class="signup-form" data-auth-action="signup">
+          <div class="field-group"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="Enter your name" required></div>
+          <div class="field-group"><label for="username">Choose a username</label><input id="username" name="username" type="text" placeholder="Create a username" required></div>
+          <div class="field-group"><label for="password">Create a password</label><input id="password" name="password" type="password" placeholder="Create a password" required></div>
+          <div class="field-group"><label for="account">Choose an account</label><select id="account" name="account"><option value="Login One">Login One</option><option value="Login Two">Login Two</option></select></div>
+          <button class="primary-button" type="submit">Create account <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="signup-note">Accounts are saved securely with password hashing and session tokens.</p>
+        <a class="signup-home-link" href="homepage.html">Already have an account? Log in</a>
+      </div>
+    </section>
+  </main>
+  <script src="backend/authentication/auth_frontend.js"></script>
+</body>
+</html>

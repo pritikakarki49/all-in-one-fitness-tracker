@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A first-use preview of the Pulseboard beginner fitness tracker.">
+  <title>Fitness Overview | Pulseboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="empty-screen">
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="events.html" aria-label="Pulseboard home"><span class="brand-mark" aria-hidden="true">+</span><span>pulseboard</span></a>
+      <div class="profile-summary"><div class="avatar">+</div><div><strong>New profile</strong><span>Ready to begin</span></div></div>
+      <nav class="nav-links">
+        <a class="nav-link active" href="events.html"><span class="nav-icon">⌂</span>Overview</a>
+        <a class="nav-link" href="#tracker"><span class="nav-icon">◷</span>Daily tracker</a>
+        <a class="nav-link" href="#progress"><span class="nav-icon">↗</span>My progress</a>
+        <a class="nav-link" href="#goals"><span class="nav-icon">◎</span>Goals</a>
+      </nav>
+      <div class="sidebar-footer"><p class="prototype-note">First-use preview</p></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-menu" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><b>/</b><strong>Overview</strong></div>
+        <div class="topbar-actions"><span class="preview-badge"><i aria-hidden="true"></i>Empty workspace</span></div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="welcome-row">
+          <div>
+            <p class="eyebrow">Your fitness workspace</p>
+            <h1>Start your journey<span class="accent">.</span></h1>
+            <p class="intro">Your daily steps, water, calories, workouts, and progress will appear here.</p>
+          </div>
+        </section>
+
+        <section class="stats-grid" aria-label="Today's fitness summary">
+          <article class="stat-card steps-card"><div class="card-topline"><span class="stat-icon">↗</span><span class="status-pill good">Not started</span></div><p class="stat-label">Daily steps</p><div class="stat-value">0 <small>/ 8,000</small></div><div class="progress-track"><span></span></div><p class="stat-note">No steps recorded yet</p></article>
+          <article class="stat-card water-card"><div class="card-topline"><span class="stat-icon">◒</span><span class="status-pill cool">Not started</span></div><p class="stat-label">Water intake</p><div class="stat-value">0 <small>/ 8 glasses</small></div><div class="progress-track"><span></span></div><p class="stat-note">No water recorded yet</p></article>
+          <article class="stat-card calories-card"><div class="card-topline"><span class="stat-icon">◇</span><span class="status-pill warm">Not started</span></div><p class="stat-label">Calories</p><div class="stat-value">0 <small>/ 2,000 kcal</small></div><div class="progress-track"><span></span></div><p class="stat-note">No calories recorded yet</p></article>
+          <article class="stat-card workout-card"><div class="card-topline"><span class="stat-icon">✦</span><span class="status-pill violet">Not started</span></div><p class="stat-label">Workout</p><div class="stat-value">0 <small>min completed</small></div><div class="progress-track"><span></span></div><p class="stat-note">No workout recorded yet</p></article>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="panel progress-panel" id="progress" aria-labelledby="progress-title">
+            <div class="panel-heading"><div><p class="eyebrow">Your rhythm</p><h2 id="progress-title">Weekly progress</h2></div><span class="period-label">This week</span></div>
+            <div class="empty-state"><span class="empty-state-icon" aria-hidden="true">↗</span><div><h3>Your progress starts here</h3><p>Record your first activity to see your week take shape.</p><button class="primary-button" type="button">Add first record <span aria-hidden="true">+</span></button></div></div>
+          </section>
+
+          <section class="panel goals-panel" id="goals" aria-labelledby="goals-title">
+            <div class="panel-heading"><div><p class="eyebrow">Small wins</p><h2 id="goals-title">Today's goals</h2></div><span class="goal-count">0 of 0</span></div>
+            <div class="empty-state"><span class="empty-state-icon" aria-hidden="true">◎</span><div><h3>No goals yet</h3><p>Your daily goals will show up here when you add them.</p></div></div>
+          </section>
+
+          <section class="panel activity-panel empty-activity" id="tracker" aria-labelledby="activity-title">
+            <div class="panel-heading"><div><p class="eyebrow">Latest records</p><h2 id="activity-title">Recent activity</h2></div></div>
+            <div class="empty-state"><span class="empty-state-icon" aria-hidden="true">◷</span><div><h3>No activity to display</h3><p>Steps, water, calories, and workouts will appear here after your first entry.</p><button class="primary-button" type="button">Open daily tracker <span aria-hidden="true">→</span></button></div></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script>
+    var mobileMenu = document.querySelector('.mobile-menu');
+    var sidebar = document.querySelector('.sidebar');
+    mobileMenu.addEventListener('click', function () {
+      var isOpen = sidebar.classList.toggle('is-open');
+      mobileMenu.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    });
+    document.querySelectorAll('.nav-link').forEach(function (link) {
+      link.addEventListener('click', function () { sidebar.classList.remove('is-open'); });
+    });
+  </script>
+</body>
+</html>
